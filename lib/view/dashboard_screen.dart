@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int _currentIndex = 0; // To track the currently selected index
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Find near by station',
+              'Find nearby station',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -72,7 +79,8 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceEvenly, // Evenly space buttons
               children: [
                 _brandButton(context, 'MG',
                     'assets/images/mg-logo-2021-present-1024x742 1.png'),
@@ -84,129 +92,126 @@ class DashboardScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Popular Station',
+              'Popular Stations',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
-                  child: _stationCard(context, 'Electra Station', 'Available'),
-                ),
-                const SizedBox(width: 10),
+                    child:
+                        _stationCard(context, 'Electra Station', 'Available')),
+                const SizedBox(width: 10), // Added space between cards
                 Expanded(
-                  child: _stationCard(context, 'Electra Station', 'Available'),
-                ),
+                    child:
+                        _stationCard(context, 'Electra Station', 'Available')),
               ],
             ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.location_on), label: 'Location'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.qr_code_scanner), label: 'Payment'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),
-        ],
-        onTap: (index) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              duration: Duration(seconds: 1),
-              content: Text('Feature coming soon!'),
-            ),
-          );
-        },
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _bottomNavItem(context, Icons.home, 'Home', 0),
+            _bottomNavItem(context, Icons.location_on, 'Location', 1),
+            _bottomNavItem(context, Icons.qr_code_scanner, 'Payment', 2),
+            _bottomNavItem(context, Icons.favorite, 'Favorite', 3),
+            _bottomNavItem(context, Icons.settings, 'Setting', 4),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _bottomNavItem(
+      BuildContext context, IconData iconData, String label, int index) {
+    final isSelected = _currentIndex == index; // Check if this item is selected
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          iconSize: 30,
+          icon: Icon(iconData,
+              color: isSelected
+                  ? Colors.green
+                  : Colors.grey), // Change color based on selection
+          onPressed: () {
+            setState(() {
+              _currentIndex = index; // Update the selected index
+              if (index != 0) {
+                // Show SnackBar for non-home items
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    duration: const Duration(seconds: 1),
+                    content: Text('$label feature coming soon!')));
+              }
+            });
+          },
+        ),
+        Text(label,
+            style: TextStyle(
+                color: isSelected
+                    ? Colors.green
+                    : Colors.grey)), // Change label color based on selection
+      ],
     );
   }
 
   Widget _brandButton(
       BuildContext context, String brandName, String imagePath) {
     return GestureDetector(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(seconds: 1),
             content: Text('$brandName brand feature coming soon!'),
-          ),
-        );
-      },
-      child: Column(
-        children: [
+          ));
+        },
+        child: Column(children: [
           Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[200],
-            ),
-            child: Image.asset(
-              imagePath,
-              height: 50,
-              width: 50,
-            ),
-          ),
+              padding: const EdgeInsets.all(
+                  16), // Increased padding for larger button
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey[200]),
+              child: Image.asset(imagePath,
+                  height: 70, width: 70) // Increased image size
+              ),
           const SizedBox(height: 5),
-          Text(brandName, style: const TextStyle(fontSize: 14)),
-        ],
-      ),
-    );
+          Text(brandName,
+              style: const TextStyle(
+                  fontSize: 16)) // Increased font size for better visibility
+        ]));
   }
 
   Widget _stationCard(BuildContext context, String stationName, String status) {
     return GestureDetector(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('$stationName station details coming soon!'),
-          ),
-        );
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              'assets/images/img-13-scaled 1.png', // Replace with actual image
-              height: 100,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    stationName,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    status,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+        onTap: () {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: const Duration(seconds: 1),
+              content: Text('$stationName station details coming soon!')));
+        },
+        child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Image.asset('assets/images/img-13-scaled 1.png',
+                  height: 100, width: double.infinity, fit: BoxFit.cover),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(stationName,
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 5),
+                        Text(status,
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.green))
+                      ]))
+            ])));
   }
 }
