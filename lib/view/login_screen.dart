@@ -1,3 +1,4 @@
+import 'package:first_sprint/view/dashboard_screen.dart';
 import 'package:first_sprint/view/signup_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -96,7 +97,13 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DashboardScreen()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         const Color(0xFF2ECC71), // Green button color
