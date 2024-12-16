@@ -1,8 +1,14 @@
 import 'package:first_sprint/view/login_screen.dart';
+import 'package:first_sprint/view/onboard3_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
+
+  // Number of pages in the onboarding process
+  final int _pageCount = 3;
+  final int _currentPage =
+      2; // Second page, update this as per current screen index
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +20,19 @@ class OnboardingScreen2 extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Top Row: Logo and Skip
+              // Top Row: Back Button and Skip Button
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Back Button
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.grey),
+                    onPressed: () {
+                      Navigator.pop(
+                          context); // Navigate back to the previous screen
+                    },
+                  ),
+                  // Skip Button
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -40,7 +55,7 @@ class OnboardingScreen2 extends StatelessWidget {
 
               // Center Image
               Image.asset(
-                'assets/images/image_2.png', // Replace with your image path
+                'assets/images/Onboard_image1.png', // Replace with your image
                 height: 200,
               ),
 
@@ -50,19 +65,19 @@ class OnboardingScreen2 extends StatelessWidget {
               const Column(
                 children: [
                   Text(
-                    'Welcome to Energize Nepal',
+                    'Easy Payments for Your EV',
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue,
+                      color: Color.fromARGB(255, 102, 141, 209),
                     ),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'Your one-stop solution for all electric vehicle charging needs.',
+                    'Secure and hassle-free payment options for your charging sessions.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 20,
                       color: Colors.grey,
                     ),
                   ),
@@ -71,25 +86,20 @@ class OnboardingScreen2 extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Pagination Indicator
-              const Row(
+              // Dynamic Pagination Indicator
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.grey,
-                  ),
-                  SizedBox(width: 5),
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.black,
-                  ),
-                  SizedBox(width: 5),
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.grey,
-                  ),
-                ],
+                children: List.generate(_pageCount, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    child: CircleAvatar(
+                      radius: 4,
+                      backgroundColor: _currentPage == (index + 1)
+                          ? Colors.greenAccent
+                          : Colors.grey,
+                    ),
+                  );
+                }),
               ),
 
               const SizedBox(height: 20),
@@ -102,7 +112,7 @@ class OnboardingScreen2 extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
+                          builder: (context) => const OnboardingScreen3()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -113,7 +123,7 @@ class OnboardingScreen2 extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'Get Started',
+                    'Next',
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -121,7 +131,7 @@ class OnboardingScreen2 extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10), // Safe space at bottom
+              const SizedBox(height: 10),
             ],
           ),
         ),
