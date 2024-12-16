@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
+  // Number of pages in the onboarding process
+  final int _pageCount = 3;
+  final int _currentPage = 0; // Current page index (0 for the first page)
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +45,7 @@ class OnboardingScreen extends StatelessWidget {
 
               // Center Image
               Image.asset(
-                'assets/images/image_2.png', // Replace with your image path
+                'assets/images/Onboard_image.png', // Replace with your image path
                 height: 200,
               ),
 
@@ -55,7 +59,7 @@ class OnboardingScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.lightBlue,
+                      color: Color.fromARGB(255, 102, 141, 209),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -63,7 +67,7 @@ class OnboardingScreen extends StatelessWidget {
                     'Easily find EV charging stations closest to your location with real-time availability updates.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 20,
                       color: Colors.grey,
                     ),
                   ),
@@ -72,25 +76,20 @@ class OnboardingScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Pagination Indicator
-              const Row(
+              // Dynamic Pagination Indicator
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.grey,
-                  ),
-                  SizedBox(width: 5),
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.greenAccent,
-                  ),
-                  SizedBox(width: 5),
-                  CircleAvatar(
-                    radius: 4,
-                    backgroundColor: Colors.grey,
-                  ),
-                ],
+                children: List.generate(_pageCount, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    child: CircleAvatar(
+                      radius: 4,
+                      backgroundColor: _currentPage == index
+                          ? Colors.greenAccent
+                          : Colors.grey,
+                    ),
+                  );
+                }),
               ),
 
               const SizedBox(height: 20),
