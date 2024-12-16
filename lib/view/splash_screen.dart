@@ -1,4 +1,4 @@
-import 'package:first_sprint/view/login_screen.dart';
+import 'package:first_sprint/view/onboard_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
       Navigator.pushReplacement(
         // ignore: use_build_context_synchronously
         context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
     return Scaffold(
