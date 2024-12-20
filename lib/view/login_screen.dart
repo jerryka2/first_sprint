@@ -1,6 +1,7 @@
 import 'package:first_sprint/view/dashboard_screen.dart';
 import 'package:first_sprint/view/signup_screen.dart';
 import 'package:flutter/material.dart';
+// Import your custom theme
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -8,6 +9,8 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context)
+          .scaffoldBackgroundColor, // Use theme background color
       body: SingleChildScrollView(
         // Allow scrolling for overflow prevention
         child: Padding(
@@ -53,13 +56,17 @@ class LoginScreen extends StatelessWidget {
                       const Icon(Icons.person, color: Colors.greenAccent),
                   hintText: 'Enter Username',
                   border: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.greenAccent, width: 2.0),
+                    borderSide: const BorderSide(
+                      color: Color(0xff07DEA3), // Border color from the theme
+                      width: 2.0,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.greenAccent, width: 2.0),
+                    borderSide: const BorderSide(
+                      color: Color(0xff07DEA3), // Border color from the theme
+                      width: 2.0,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
@@ -74,8 +81,10 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: Colors.greenAccent, width: 2.0),
+                    borderSide: const BorderSide(
+                      color: Color(0xff07DEA3), // Border color from the theme
+                      width: 2.0,
+                    ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
@@ -105,8 +114,8 @@ class LoginScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xFF2ECC71), // Green button color
+                    backgroundColor: Theme.of(context)
+                        .primaryColor, // Button color from the theme
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -149,7 +158,6 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
     );
   }
 }
