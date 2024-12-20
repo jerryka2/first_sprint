@@ -1,6 +1,6 @@
+import 'package:first_sprint/view/location_screen.dart';
 import 'package:flutter/material.dart';
 
-// Make sure to import the LoginScreen here.
 import 'login_screen.dart'; // <-- Add this import to your code
 
 class DashboardScreen extends StatefulWidget {
@@ -111,15 +111,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 20),
+              // "Our Brands" section with brand logos and labels
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _brandButton(context, 'MG',
-                      'assets/images/mg-logo-2021-present-1024x742 1.png'),
-                  _brandButton(context, 'TATA',
-                      'assets/images/Screenshot 2024-11-28 125612 1.png'),
-                  _brandButton(context, 'BYD',
-                      'assets/images/byd-brand-logo-symbol-name-black-design-car-china-vector-45976095 1.png'),
+                  _brandButton(
+                    context,
+                    'MG',
+                    'assets/images/mg-logo-2021-present-1024x742 1.png',
+                    'MG',
+                  ),
+                  _brandButton(
+                    context,
+                    'TATA',
+                    'assets/images/Screenshot 2024-11-28 125612 1.png',
+                    'TATA',
+                  ),
+                  _brandButton(
+                    context,
+                    'BYD',
+                    'assets/images/byd-brand-logo-symbol-name-black-design-car-china-vector-45976095 1.png',
+                    'BYD',
+                  ),
                 ],
               ),
               const SizedBox(height: 30),
@@ -214,7 +227,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // Other methods (like _bottomNavItem, _brandButton, etc.) remain unchanged...
+  // Other methods (like _bottomNavItem, _stationCard, etc.) remain unchanged...
 
   Widget _bottomNavItem(
     BuildContext context,
@@ -233,6 +246,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
           ),
           onPressed: () {
+            Navigator.pushReplacement(
+              // ignore: use_build_context_synchronously
+              context,
+              MaterialPageRoute(builder: (context) => const LocationScreen()),
+            );
             setState(() {
               _currentIndex = index;
               // Show SnackBar for features that are not implemented yet
@@ -258,7 +276,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _brandButton(
-      BuildContext context, String brandName, String imagePath) {
+      BuildContext context, String brandName, String imagePath, String label) {
     return GestureDetector(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -270,6 +288,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Column(
         children: [
+          // Brand Image
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -283,9 +302,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
           const SizedBox(height: 10),
+          // Brand Name Label
           Text(
-            brandName,
-            style: Theme.of(context).textTheme.labelLarge,
+            label, // Display brand label below the logo
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
           ),
         ],
       ),
