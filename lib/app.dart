@@ -1,3 +1,4 @@
+import 'package:first_sprint/core/app_theme/app_theme.dart';
 import 'package:first_sprint/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.green),
+      theme: getApplicationTheme(),
       home: const SplashScreen(),
     );
   }

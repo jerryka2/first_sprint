@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Make sure to import the LoginScreen here.
+import 'login_screen.dart'; // <-- Add this import to your code
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -14,111 +17,160 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: false,
-        actions: [
-          CircleAvatar(
-            backgroundColor: Colors.grey[200],
-            radius: 20,
-            child: const Icon(Icons.person, color: Colors.black),
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Hello, Customer',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              'Welcome to Energize Nepal',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Find nearby station',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Row with user greeting and CircleAvatar for profile options
+              Row(
+                children: [
+                  Text(
+                    'Hello, Customer',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontSize: 24),
+                  ),
+                  const Spacer(),
+                  PopupMenuButton<String>(
+                    icon: const CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      radius: 20,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                    onSelected: (value) {
+                      if (value == 'logout') {
+                        _showLogoutDialog(context);
+                      }
+                    },
+                    itemBuilder: (BuildContext context) {
+                      return [
+                        const PopupMenuItem<String>(
+                          value: 'logout',
+                          child: Text('Logout'),
+                        ),
+                      ];
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Welcome to Energize Nepal',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: Colors.grey),
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'Find nearby station',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        prefixIcon: const Icon(Icons.search),
+                        border: Theme.of(context).inputDecorationTheme.border,
+                        enabledBorder: Theme.of(context)
+                            .inputDecorationTheme
+                            .enabledBorder,
+                        focusedBorder: Theme.of(context)
+                            .inputDecorationTheme
+                            .focusedBorder,
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                IconButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Filter feature coming soon!'),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.filter_list),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Our Brands',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly, // Evenly space buttons
-              children: [
-                _brandButton(context, 'MG',
-                    'assets/images/mg-logo-2021-present-1024x742 1.png'),
-                _brandButton(context, 'TATA',
-                    'assets/images/Screenshot 2024-11-28 125612 1.png'),
-                _brandButton(context, 'BYD',
-                    'assets/images/byd-brand-logo-symbol-name-black-design-car-china-vector-45976095 1.png'),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Popular Stations',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
+                  const SizedBox(width: 15),
+                  IconButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Filter feature coming soon!'),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.filter_list),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'Our Brands',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _brandButton(context, 'MG',
+                      'assets/images/mg-logo-2021-present-1024x742 1.png'),
+                  _brandButton(context, 'TATA',
+                      'assets/images/Screenshot 2024-11-28 125612 1.png'),
+                  _brandButton(context, 'BYD',
+                      'assets/images/byd-brand-logo-symbol-name-black-design-car-china-vector-45976095 1.png'),
+                ],
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'Popular Stations',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
                     child:
-                        _stationCard(context, 'Electra Station', 'Available')),
-                const SizedBox(width: 10), // Added space between cards
-                Expanded(
+                        _stationCard(context, 'Electra Station', 'Available'),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
                     child:
-                        _stationCard(context, 'Electra Station', 'Available')),
-              ],
-            ),
-          ],
+                        _stationCard(context, 'Electra Station', 'Available'),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             _bottomNavItem(context, Icons.home, 'Home', 0),
             _bottomNavItem(context, Icons.location_on, 'Location', 1),
-            _bottomNavItem(context, Icons.qr_code_scanner, 'Payment', 2),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 28,
+                  backgroundColor: Colors.grey[200],
+                ),
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  child: const Icon(
+                    Icons.qr_code_scanner,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ],
+            ),
             _bottomNavItem(context, Icons.favorite, 'Favorite', 3),
             _bottomNavItem(context, Icons.settings, 'Setting', 4),
           ],
@@ -127,35 +179,80 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  // Method to show logout confirmation dialog
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                // Navigate to the login screen after logout
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logged out successfully!')),
+                );
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Other methods (like _bottomNavItem, _brandButton, etc.) remain unchanged...
+
   Widget _bottomNavItem(
-      BuildContext context, IconData iconData, String label, int index) {
-    final isSelected = _currentIndex == index; // Check if this item is selected
+    BuildContext context,
+    IconData iconData,
+    String label,
+    int index,
+  ) {
+    final isSelected = _currentIndex == index;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
           iconSize: 30,
-          icon: Icon(iconData,
-              color: isSelected
-                  ? Colors.green
-                  : Colors.grey), // Change color based on selection
+          icon: Icon(
+            iconData,
+            color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+          ),
           onPressed: () {
             setState(() {
-              _currentIndex = index; // Update the selected index
+              _currentIndex = index;
+              // Show SnackBar for features that are not implemented yet
               if (index != 0) {
-                // Show SnackBar for non-home items
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
                     duration: const Duration(seconds: 1),
-                    content: Text('$label feature coming soon!')));
+                    content: Text('$label feature coming soon!'),
+                  ),
+                );
               }
             });
           },
         ),
-        Text(label,
-            style: TextStyle(
-                color: isSelected
-                    ? Colors.green
-                    : Colors.grey)), // Change label color based on selection
+        Text(
+          label,
+          style: TextStyle(
+            color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+          ),
+        ),
       ],
     );
   }
@@ -163,56 +260,85 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _brandButton(
       BuildContext context, String brandName, String imagePath) {
     return GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
             duration: const Duration(seconds: 1),
             content: Text('$brandName brand feature coming soon!'),
-          ));
-        },
-        child: Column(children: [
+          ),
+        );
+      },
+      child: Column(
+        children: [
           Container(
-              padding: const EdgeInsets.all(
-                  16), // Increased padding for larger button
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey[200]),
-              child: Image.asset(imagePath,
-                  height: 70, width: 70) // Increased image size
-              ),
-          const SizedBox(height: 5),
-          Text(brandName,
-              style: const TextStyle(
-                  fontSize: 16)) // Increased font size for better visibility
-        ]));
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey[200],
+            ),
+            child: Image.asset(
+              imagePath,
+              height: 70,
+              width: 70,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            brandName,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _stationCard(BuildContext context, String stationName, String status) {
     return GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              duration: const Duration(seconds: 1),
-              content: Text('$stationName station details coming soon!')));
-        },
-        child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Image.asset('assets/images/img-13-scaled 1.png',
-                  height: 100, width: double.infinity, fit: BoxFit.cover),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(stationName,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 5),
-                        Text(status,
-                            style: const TextStyle(
-                                fontSize: 14, color: Colors.green))
-                      ]))
-            ])));
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: const Duration(seconds: 1),
+            content: Text('$stationName station details coming soon!'),
+          ),
+        );
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              'assets/images/img-13-scaled 1.png',
+              height: 100,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    stationName,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    status,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
