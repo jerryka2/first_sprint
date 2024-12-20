@@ -246,23 +246,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
             color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
           ),
           onPressed: () {
-            Navigator.pushReplacement(
-              // ignore: use_build_context_synchronously
-              context,
-              MaterialPageRoute(builder: (context) => const LocationScreen()),
-            );
             setState(() {
               _currentIndex = index;
-              // Show SnackBar for features that are not implemented yet
-              if (index != 0) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 1),
-                    content: Text('$label feature coming soon!'),
-                  ),
-                );
-              }
+              // Show SnackBar for features that are not implemented ye
             });
+            if (index == 1) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LocationScreen()),
+              );
+            } else if (index == 0) {
+              // No snackbar for "Home" tab
+              return;
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 1),
+                  content: Text('$label feature coming soon!'),
+                ),
+              );
+            }
           },
         ),
         Text(
