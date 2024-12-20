@@ -18,48 +18,51 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context)
           .scaffoldBackgroundColor, // Use theme background color
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Spacer(), // Push the logo and text slightly down
-          // Logo Image with the theme's primary color for styling
-          Image.asset(
-            'assets/images/image_2.png', // Replace with your logo path
-            height: 220,
-          ),
-          const SizedBox(height: 20),
-          // Title Text with the theme's primary color
-          RichText(
-            text: const TextSpan(
-              children: [
-                TextSpan(
-                  text: 'ENERGIZE ',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff3454A4), // Color for "ENERGIZE"
-                  ),
-                ),
-                TextSpan(
-                  text: 'NEPAL',
-                  style: TextStyle(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Logo Image with the theme's primary color for styling
+            Image.asset(
+              'assets/images/image_2.png', // Replace with your logo path
+              height: MediaQuery.of(context).size.height *
+                  0.2, // Adjust logo size based on screen height
+            ),
+            const SizedBox(height: 20),
+            // Title Text with the theme's primary color
+            RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'ENERGIZE ',
+                    style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(
-                          0xff3454A4) // Use the theme's primary color for "NEPAL"
-                      ),
-                ),
-              ],
+                      color: Color(0xff3454A4), // Color for "ENERGIZE"
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'NEPAL',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff3454A4), // Color for "NEPAL"
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Spacer(), // Push the progress indicator slightly up
-          // CircularProgressIndicator styled with the theme's primary color
-          const CircularProgressIndicator(
-            valueColor:
-                AlwaysStoppedAnimation<Color>(Colors.blue), // Match style
-          ),
-          const SizedBox(height: 60), // Add padding at the bottom
-        ],
+            const SizedBox(height: 20),
+            // CircularProgressIndicator styled with the theme's primary color
+            const CircularProgressIndicator(
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Colors.blue), // Match style
+            ),
+            const SizedBox(height: 40), // Add spacing at the bottom
+          ],
+        ),
       ),
     );
   }
