@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 102, 141, 209)), // Custom color
+                    color: Color(0xff3454A4)), // Custom color
               ),
               const SizedBox(height: 30),
               const Text(

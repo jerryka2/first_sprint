@@ -1,3 +1,4 @@
+// Import the theme
 import 'package:first_sprint/view/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,8 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: Theme.of(context)
+          .scaffoldBackgroundColor, // Use theme background color
       body: SafeArea(
         child: SingleChildScrollView(
           // This makes the page scrollable
@@ -30,7 +32,7 @@ class SignUpPage extends StatelessWidget {
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
-                      color: Color.fromARGB(255, 102, 141, 209)),
+                      color: Color(0xff3454A4)),
                 ),
                 const SizedBox(height: 30),
                 // Subtitle
@@ -52,7 +54,7 @@ class SignUpPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 30),
-                // Input Fields
+                // Input Fields using ThemeData
                 TextField(
                   decoration: InputDecoration(
                     prefixIcon: const Icon(
@@ -61,13 +63,15 @@ class SignUpPage extends StatelessWidget {
                     ),
                     hintText: 'Enter Username',
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -81,13 +85,15 @@ class SignUpPage extends StatelessWidget {
                     ),
                     hintText: 'Enter your mail',
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -102,19 +108,21 @@ class SignUpPage extends StatelessWidget {
                     ),
                     hintText: 'Enter Password',
                     border: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Colors.greenAccent, width: 2.0),
+                      borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 2.0), // Use primary color from the theme
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
                 const SizedBox(height: 30),
-                // Sign-Up Button
+                // Sign-Up Button using the theme
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -145,7 +153,8 @@ class SignUpPage extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: Theme.of(context)
+                          .primaryColor, // Use primary color from the theme
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

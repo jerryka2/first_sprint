@@ -1,6 +1,7 @@
 import 'package:first_sprint/view/login_screen.dart';
 import 'package:first_sprint/view/onboard2_screen.dart';
 import 'package:flutter/material.dart';
+// Import the theme
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -12,7 +13,8 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context)
+          .scaffoldBackgroundColor, // Use theme background color
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -23,6 +25,7 @@ class OnboardingScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // Skip Button using theme
                   TextButton(
                     onPressed: () {
                       Navigator.push(
@@ -31,11 +34,12 @@ class OnboardingScreen extends StatelessWidget {
                             builder: (context) => const LoginScreen()),
                       );
                     },
-                    child: const Text(
+                    child: Text(
                       'Skip',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey,
+                        color: Theme.of(context)
+                            .primaryColor, // Use primary color from the theme
                       ),
                     ),
                   ),
@@ -51,7 +55,7 @@ class OnboardingScreen extends StatelessWidget {
 
               const SizedBox(height: 30),
 
-              // Title and Subtitle
+              // Title and Subtitle using theme for colors
               const Column(
                 children: [
                   Text(
@@ -59,7 +63,7 @@ class OnboardingScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 102, 141, 209),
+                      color: Color(0xff3454A4),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -76,7 +80,7 @@ class OnboardingScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Dynamic Pagination Indicator
+              // Dynamic Pagination Indicator using theme for active color
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(_pageCount, (index) {
@@ -85,7 +89,8 @@ class OnboardingScreen extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 4,
                       backgroundColor: _currentPage == index
-                          ? Colors.greenAccent
+                          ? Theme.of(context)
+                              .primaryColor // Use primary color for active indicator
                           : Colors.grey,
                     ),
                   );
@@ -94,7 +99,7 @@ class OnboardingScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Next Button
+              // Next Button using the theme
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -106,7 +111,8 @@ class OnboardingScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
+                    backgroundColor: Theme.of(context)
+                        .primaryColor, // Use primary color from the theme
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
